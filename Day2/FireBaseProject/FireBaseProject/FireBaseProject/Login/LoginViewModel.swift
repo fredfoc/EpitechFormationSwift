@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 
 enum LoginResult {
     case success
@@ -23,8 +24,15 @@ enum LoginError: Error {
 struct LoginViewModel {
     func createProfile(email:String?, password: String?, completion: ((LoginResult) -> Void)? = nil) {
         do {
-            try checkEmailAndPassword(email: email, password: password)
-            completion?(.success)
+            let (email, password) = try checkEmailAndPassword(email: email, password: password)
+            Auth.auth().createUser(withEmail: email,
+                                   password: password) { (_, error) in
+                                    if let error = error {
+                                        completion?(.failure(error))
+                                        return
+                                    }
+                                    completion?(.success)
+            }
         } catch {
             completion?(.failure(error))
         }
@@ -39,18 +47,19 @@ struct LoginViewModel {
         }
     }
     
-    private func checkEmailAndPassword(email: String?, password: String?) throws {
-        guard let email = email else {
+    private func checkEmailAndPassword(email: String?, password: String?) throws -> (email:String, password: String) {
+        guard let email = email, !email.isEmpty else {
             throw LoginError.emailIsEmpty
         }
         guard email.isValidEmail else {
             throw LoginError.emailIsNotValid
         }
-        guard let password = password else {
+        guard let password = password, !password.isEmpty else {
             throw LoginError.passwordIsEmpty
         }
         guard password.isValidPassword else {
             throw LoginError.passwordIsNotValid
         }
+        return (email: email, password: password)
     }
 }

@@ -18,6 +18,7 @@
 		9A459C82218740E900923B40 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A459C81218740E900923B40 /* HomeViewController.swift */; };
 		9A459C852187461600923B40 /* String+Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A459C842187461600923B40 /* String+Email.swift */; };
 		9A459C872187465B00923B40 /* String+Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A459C862187465B00923B40 /* String+Password.swift */; };
+		9A459C8921874BB200923B40 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A459C8821874BB200923B40 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		9A459C81218740E900923B40 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		9A459C842187461600923B40 /* String+Email.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Email.swift"; sourceTree = "<group>"; };
 		9A459C862187465B00923B40 /* String+Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Password.swift"; sourceTree = "<group>"; };
+		9A459C8821874BB200923B40 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A3CE897C5C8B53222949B379 /* Pods-FireBaseProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireBaseProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-FireBaseProject/Pods-FireBaseProject.release.xcconfig"; sourceTree = "<group>"; };
 		CD5A33503B3213EED968F316 /* Pods-FireBaseProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireBaseProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FireBaseProject/Pods-FireBaseProject.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -70,6 +72,7 @@
 		9A459C5D218735E000923B40 = {
 			isa = PBXGroup;
 			children = (
+				9A459C8821874BB200923B40 /* GoogleService-Info.plist */,
 				9A459C68218735E000923B40 /* FireBaseProject */,
 				9A459C67218735E000923B40 /* Products */,
 				13AAD79A4DF2911BC651A84D /* Pods */,
@@ -138,6 +141,7 @@
 				9A459C62218735E000923B40 /* Sources */,
 				9A459C63218735E000923B40 /* Frameworks */,
 				9A459C64218735E000923B40 /* Resources */,
+				B269B09A2717BCEC5ED490E1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -189,12 +193,35 @@
 				9A459C74218735E200923B40 /* LaunchScreen.storyboard in Resources */,
 				9A459C71218735E200923B40 /* Assets.xcassets in Resources */,
 				9A459C6F218735E000923B40 /* Main.storyboard in Resources */,
+				9A459C8921874BB200923B40 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		B269B09A2717BCEC5ED490E1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-FireBaseProject/Pods-FireBaseProject-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FireBaseProject/Pods-FireBaseProject-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		E7A343236424D5B63339DFD0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -376,10 +403,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 69B39F3M5G;
 				INFOPLIST_FILE = FireBaseProject/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.mototomo.FireBaseProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -395,10 +419,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 69B39F3M5G;
 				INFOPLIST_FILE = FireBaseProject/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.mototomo.FireBaseProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
