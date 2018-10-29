@@ -31,7 +31,8 @@ class LoginViewController: UIViewController {
     private func analyseResult(result: LoginResult) {
         switch result {
         case .success:
-            print("success")
+            let homeVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "homeVC")
+            navigationController?.show(homeVC, sender: nil)
         case .failure(let error):
             displayAlert(with: error.localizedDescription)
         }

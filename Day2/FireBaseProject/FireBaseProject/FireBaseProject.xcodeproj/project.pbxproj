@@ -15,6 +15,7 @@
 		9A459C74218735E200923B40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A459C72218735E200923B40 /* LaunchScreen.storyboard */; };
 		9A459C7C21873A5600923B40 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A459C7B21873A5600923B40 /* LoginViewModel.swift */; };
 		9A459C7E21873FC000923B40 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A459C7D21873FC000923B40 /* UIViewController+Alert.swift */; };
+		9A459C82218740E900923B40 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A459C81218740E900923B40 /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		9A459C75218735E200923B40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A459C7B21873A5600923B40 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		9A459C7D21873FC000923B40 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
+		9A459C81218740E900923B40 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		A3CE897C5C8B53222949B379 /* Pods-FireBaseProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireBaseProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-FireBaseProject/Pods-FireBaseProject.release.xcconfig"; sourceTree = "<group>"; };
 		CD5A33503B3213EED968F316 /* Pods-FireBaseProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireBaseProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FireBaseProject/Pods-FireBaseProject.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,16 +84,33 @@
 		9A459C68218735E000923B40 /* FireBaseProject */ = {
 			isa = PBXGroup;
 			children = (
+				9A459C80218740C400923B40 /* Login */,
+				9A459C7F218740BB00923B40 /* Home */,
 				9A459C69218735E000923B40 /* AppDelegate.swift */,
-				9A459C6B218735E000923B40 /* LoginViewController.swift */,
 				9A459C6D218735E000923B40 /* Main.storyboard */,
 				9A459C70218735E200923B40 /* Assets.xcassets */,
 				9A459C72218735E200923B40 /* LaunchScreen.storyboard */,
 				9A459C75218735E200923B40 /* Info.plist */,
-				9A459C7B21873A5600923B40 /* LoginViewModel.swift */,
 				9A459C7D21873FC000923B40 /* UIViewController+Alert.swift */,
 			);
 			path = FireBaseProject;
+			sourceTree = "<group>";
+		};
+		9A459C7F218740BB00923B40 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				9A459C81218740E900923B40 /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		9A459C80218740C400923B40 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				9A459C6B218735E000923B40 /* LoginViewController.swift */,
+				9A459C7B21873A5600923B40 /* LoginViewModel.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,6 +206,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A459C82218740E900923B40 /* HomeViewController.swift in Sources */,
 				9A459C6C218735E000923B40 /* LoginViewController.swift in Sources */,
 				9A459C6A218735E000923B40 /* AppDelegate.swift in Sources */,
 				9A459C7C21873A5600923B40 /* LoginViewModel.swift in Sources */,
