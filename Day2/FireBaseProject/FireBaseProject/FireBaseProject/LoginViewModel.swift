@@ -15,10 +15,10 @@ enum LoginResult {
 
 struct LoginViewModel {
     func createProfile(email:String?, password: String?, completion: ((LoginResult) -> Void)? = nil) {
-        
+        completion?(.success)
     }
     
     func submitProfile(email:String?, password: String?, completion: ((LoginResult) -> Void)? = nil) {
-        
+        completion?(.success)
     }
 }
