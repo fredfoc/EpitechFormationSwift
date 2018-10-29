@@ -278,7 +278,10 @@ let jsonStr = """
 
 struct ModelPresenter {
     func getModel(completion: @escaping (ResultAPI?) -> Void) {
-        Alamofire.request("https://api.randomuser.me/?nat=US&results=5").responseData { (response) in
+        let utilityQueue = DispatchQueue.global(qos: .utility)
+        Alamofire
+            .request("https://api.randomuser.me/?nat=US&results=5")
+            .responseData(queue: utilityQueue) { (response) in
             switch response.result {
             case .success(let value):
                 completion(try? JSONDecoder().decode(ResultAPI.self,

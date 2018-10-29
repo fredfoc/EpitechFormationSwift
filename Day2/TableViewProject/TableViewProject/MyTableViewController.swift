@@ -33,7 +33,9 @@ class MyTableViewController: UIViewController {
         ModelPresenter().getModel {[weak self] (result) in
             print("get result")
             self?.myModels = result
-            self?.tableView.reloadData()
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
         }
         print("end viewDidLoad")
     }
