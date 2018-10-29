@@ -30,14 +30,30 @@ class MyTableViewController: UIViewController {
         super.viewDidLoad()
         title = "Home Page"
         
-        ModelPresenter().getModel {[weak self] (result) in
-            print("get result")
+        ModelPresenter().getModel {[weak self] (result, error) in
+            guard error == nil else {
+                DispatchQueue.main.async {
+                    self?.displayAlert(with: error?.localizedDescription)
+                }
+                return
+            }
             self?.myModels = result
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         }
         print("end viewDidLoad")
+    }
+    
+    private func displayAlert(with message: String?) {
+        let alertViewController = UIAlertController(title: "Erreur",
+                                                    message: message,
+                                                    preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok",
+                                     style: .cancel,
+                                     handler: nil)
+        alertViewController.addAction(okAction)
+        present(alertViewController, animated: true)
     }
 }
 
