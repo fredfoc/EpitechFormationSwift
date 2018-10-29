@@ -13,12 +13,44 @@ enum LoginResult {
     case failure(Error)
 }
 
+enum LoginError: Error {
+    case emailIsEmpty
+    case emailIsNotValid
+    case passwordIsEmpty
+    case passwordIsNotValid
+}
+
 struct LoginViewModel {
     func createProfile(email:String?, password: String?, completion: ((LoginResult) -> Void)? = nil) {
-        completion?(.success)
+        do {
+            try checkEmailAndPassword(email: email, password: password)
+            completion?(.success)
+        } catch {
+            completion?(.failure(error))
+        }
     }
     
     func submitProfile(email:String?, password: String?, completion: ((LoginResult) -> Void)? = nil) {
-        completion?(.success)
+        do {
+            try checkEmailAndPassword(email: email, password: password)
+            completion?(.success)
+        } catch {
+            completion?(.failure(error))
+        }
+    }
+    
+    private func checkEmailAndPassword(email: String?, password: String?) throws {
+        guard let email = email else {
+            throw LoginError.emailIsEmpty
+        }
+        guard email.isValidEmail else {
+            throw LoginError.emailIsNotValid
+        }
+        guard let password = password else {
+            throw LoginError.passwordIsEmpty
+        }
+        guard password.isValidPassword else {
+            throw LoginError.passwordIsNotValid
+        }
     }
 }
