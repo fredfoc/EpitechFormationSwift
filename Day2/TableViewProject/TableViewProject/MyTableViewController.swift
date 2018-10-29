@@ -29,7 +29,14 @@ class MyTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Home Page"
-        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Refresh",
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(refresh))
+        refresh()
+    }
+    
+    @objc private func refresh() {
         ModelPresenter().getModel {[weak self] (result, error) in
             guard error == nil else {
                 DispatchQueue.main.async {
@@ -42,7 +49,6 @@ class MyTableViewController: UIViewController {
                 self?.tableView.reloadData()
             }
         }
-        print("end viewDidLoad")
     }
     
     private func displayAlert(with message: String?) {
