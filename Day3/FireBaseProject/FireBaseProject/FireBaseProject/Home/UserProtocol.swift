@@ -12,4 +12,7 @@ protocol UserProtocol {
     var currentUserUUId: String? { get }
     var currentEmail: String? { get }
     func getUsers(completion: @escaping (NSDictionary?) -> Void)
+    func logIn()
+    func logOut(completion: (Bool, Error?) -> Void)
+    func removeObservers()
 }

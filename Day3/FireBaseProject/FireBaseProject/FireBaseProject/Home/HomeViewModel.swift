@@ -6,35 +6,17 @@
 //  Copyright © 2018 MotoTomo. All rights reserved.
 //
 
-import Firebase
 import Foundation
 
 struct HomeViewModel {
     let userManager: UserProtocol
 
     func logOut(completion: (Bool, Error?) -> Void) {
-        guard let currentUser = Auth.auth().currentUser else {
-            return
-        }
-        let ref = Database.database().reference().child("users").child(currentUser.uid)
-        ref.updateChildValues(["online": false])
-        do {
-            try Auth.auth().signOut()
-            completion(true, nil)
-        } catch {
-            completion(false, error)
-        }
+        userManager.logOut(completion: completion)
     }
 
     func logIn() {
-        guard let currentUser = Auth.auth().currentUser else {
-            return
-        }
-        let ref = Database.database().reference().child("users").child(currentUser.uid)
-        ref.setValue([
-            "username": currentUser.email,
-            "online": true,
-        ])
+        userManager.logIn()
     }
 
     var displayUserInfo: String? {
@@ -70,6 +52,6 @@ struct HomeViewModel {
     }
 
     func removeObservers() {
-        Database.database().reference().removeAllObservers()
+        userManager.removeObservers()
     }
 }

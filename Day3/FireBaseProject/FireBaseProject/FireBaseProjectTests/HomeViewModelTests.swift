@@ -13,6 +13,9 @@ extension UserProtocol {
     var currentEmail: String? {
         return "fred@fred.com"
     }
+    func logIn() { }
+    func logOut(completion: (Bool, Error?) -> Void) { }
+    func removeObservers() { }
 }
 
 class FireBaseProjectTests: XCTestCase {
@@ -30,7 +33,12 @@ class FireBaseProjectTests: XCTestCase {
         }
     }
 
-    struct MockFireBaseManagerLogged: UserProtocol {
+    class MockFireBaseManagerLogged: UserProtocol {
+        
+        var loginWasCalled = false
+        var logoutWasCalled = false
+        var removeWasCalled = false
+        
         var currentUserUUId: String? {
             return "uuid"
         }
@@ -50,6 +58,18 @@ class FireBaseProjectTests: XCTestCase {
                     "online": true,
                 ],
             ])
+        }
+        
+        func logIn() {
+            loginWasCalled = true
+        }
+        
+        func logOut(completion: (Bool, Error?) -> Void) {
+            logoutWasCalled = true
+        }
+        
+        func removeObservers() {
+            removeWasCalled = true
         }
     }
     
@@ -109,5 +129,26 @@ class FireBaseProjectTests: XCTestCase {
         let mockFireBase = MockFireBaseManagerLogged()
         let homeViewModel = HomeViewModel(userManager: mockFireBase)
         XCTAssertNotNil(homeViewModel.displayUserInfo)
+    }
+    
+    func testLogin() {
+        let mockFireBase = MockFireBaseManagerLogged()
+        let homeViewModel = HomeViewModel(userManager: mockFireBase)
+        homeViewModel.logIn()
+        XCTAssertTrue(mockFireBase.loginWasCalled)
+    }
+    
+    func testLogout() {
+        let mockFireBase = MockFireBaseManagerLogged()
+        let homeViewModel = HomeViewModel(userManager: mockFireBase)
+        homeViewModel.logOut { (_, _) in }
+        XCTAssertTrue(mockFireBase.logoutWasCalled)
+    }
+    
+    func testRemoveObservers() {
+        let mockFireBase = MockFireBaseManagerLogged()
+        let homeViewModel = HomeViewModel(userManager: mockFireBase)
+        homeViewModel.removeObservers()
+        XCTAssertTrue(mockFireBase.removeWasCalled)
     }
 }

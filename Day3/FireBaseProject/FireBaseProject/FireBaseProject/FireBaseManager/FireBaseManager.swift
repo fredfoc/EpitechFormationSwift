@@ -31,4 +31,33 @@ extension FireBaseManager: UserProtocol {
             completion(value)
         })
     }
+    
+    func logIn() {
+        guard let currentUser = Auth.auth().currentUser else {
+            return
+        }
+        let ref = Database.database().reference().child("users").child(currentUser.uid)
+        ref.setValue([
+            "username": currentUser.email,
+            "online": true,
+            ])
+    }
+    
+    func logOut(completion: (Bool, Error?) -> Void) {
+        guard let currentUser = Auth.auth().currentUser else {
+            return
+        }
+        let ref = Database.database().reference().child("users").child(currentUser.uid)
+        ref.updateChildValues(["online": false])
+        do {
+            try Auth.auth().signOut()
+            completion(true, nil)
+        } catch {
+            completion(false, error)
+        }
+    }
+    
+    func removeObservers() {
+        Database.database().reference().removeAllObservers()
+    }
 }
