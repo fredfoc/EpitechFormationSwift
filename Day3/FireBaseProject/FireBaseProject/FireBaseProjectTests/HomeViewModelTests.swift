@@ -9,9 +9,19 @@
 @testable import FireBaseProject
 import XCTest
 
+extension UserProtocol {
+    var currentEmail: String? {
+        return "fred@fred.com"
+    }
+}
+
 class FireBaseProjectTests: XCTestCase {
-    struct MockFireBaseManager: UserProtocol {
+    struct MockFireBaseManagerNoUser: UserProtocol {
         var currentUserUUId: String? {
+            return nil
+        }
+        
+        var currentEmail: String? {
             return nil
         }
 
@@ -23,6 +33,10 @@ class FireBaseProjectTests: XCTestCase {
     struct MockFireBaseManagerLogged: UserProtocol {
         var currentUserUUId: String? {
             return "uuid"
+        }
+        
+        var currentEmail: String? {
+            return nil
         }
 
         func getUsers(completion: @escaping (NSDictionary?) -> Void) {
@@ -59,7 +73,7 @@ class FireBaseProjectTests: XCTestCase {
 
     func testGetUsersWhenCurrentUserIsLoggedOut() {
         // when user is loggued out => users is nil
-        let mockFireBase = MockFireBaseManager()
+        let mockFireBase = MockFireBaseManagerNoUser()
         let homeViewModel = HomeViewModel(userManager: mockFireBase)
         homeViewModel.getUsers { users in
             XCTAssertNil(users)
@@ -83,5 +97,17 @@ class FireBaseProjectTests: XCTestCase {
         homeViewModel.getUsers { users in
             XCTAssertTrue(users!.isEmpty)
         }
+    }
+    
+    func testDisplayUserUserLogguedOut() {
+        let mockFireBase = MockFireBaseManagerNoUser()
+        let homeViewModel = HomeViewModel(userManager: mockFireBase)
+        XCTAssertNil(homeViewModel.displayUserInfo)
+    }
+    
+    func testDisplayUserUserLogguedIn() {
+        let mockFireBase = MockFireBaseManagerLogged()
+        let homeViewModel = HomeViewModel(userManager: mockFireBase)
+        XCTAssertNotNil(homeViewModel.displayUserInfo)
     }
 }

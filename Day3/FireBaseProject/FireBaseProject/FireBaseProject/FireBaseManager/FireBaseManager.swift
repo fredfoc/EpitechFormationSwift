@@ -13,6 +13,10 @@ class FireBaseManager {
 }
 
 extension FireBaseManager: UserProtocol {
+    var currentEmail: String? {
+        return Auth.auth().currentUser?.email
+    }
+    
     var currentUserUUId: String? {
         return Auth.auth().currentUser?.uid
     }

@@ -38,7 +38,10 @@ struct HomeViewModel {
     }
 
     var displayUserInfo: String? {
-        return Auth.auth().currentUser?.email
+        guard userManager.currentUserUUId != nil else {
+            return nil
+        }
+        return userManager.currentEmail ?? "anonymous"
     }
 
     func getUsers(completion: @escaping ([UserModel]?) -> Void) {

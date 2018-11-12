@@ -10,5 +10,6 @@ import Foundation
 
 protocol UserProtocol {
     var currentUserUUId: String? { get }
+    var currentEmail: String? { get }
     func getUsers(completion: @escaping (NSDictionary?) -> Void)
 }
