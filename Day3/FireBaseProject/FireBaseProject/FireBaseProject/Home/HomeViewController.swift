@@ -13,7 +13,7 @@ class HomeViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
 
     var users = [UserModel]()
-    let homeViewModel = HomeViewModel()
+    let homeViewModel = HomeViewModel(userManager: FireBaseManager())
 
     override func viewDidLoad() {
         super.viewDidLoad()
