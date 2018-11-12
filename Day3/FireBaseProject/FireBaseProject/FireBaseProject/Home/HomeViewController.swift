@@ -9,12 +9,12 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    
-    @IBOutlet private weak var userInfos: UITextView!
-    @IBOutlet private weak var tableView: UITableView!
-    
+    @IBOutlet private var userInfos: UITextView!
+    @IBOutlet private var tableView: UITableView!
+
     var users = [UserModel]()
-    
+    let homeViewModel = HomeViewModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Home"
@@ -23,16 +23,21 @@ class HomeViewController: UIViewController {
                                                             style: .plain,
                                                             target: self,
                                                             action: #selector(logOut))
-        userInfos.text = HomeViewModel().displayUserInfo
-        
-        HomeViewModel().getUsers {[weak self] (users) in
+        userInfos.text = homeViewModel.displayUserInfo
+        homeViewModel.logIn()
+        homeViewModel.getUsers { [weak self] users in
             self?.users = users
             self?.tableView.reloadData()
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        homeViewModel.removeObservers()
+    }
+
     @objc private func logOut() {
-        HomeViewModel().logOut { (completed, error) in
+        homeViewModel.logOut { completed, error in
             if completed {
                 navigationController?.popToRootViewController(animated: true)
             } else {
@@ -43,10 +48,10 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return users.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
         let user = users[indexPath.row]
@@ -56,5 +61,4 @@ extension HomeViewController: UITableViewDataSource {
 }
 
 extension HomeViewController: UITableViewDelegate {
-    
 }

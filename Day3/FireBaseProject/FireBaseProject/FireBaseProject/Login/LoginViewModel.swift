@@ -6,8 +6,8 @@
 //  Copyright © 2018 MotoTomo. All rights reserved.
 //
 
-import Foundation
 import Firebase
+import Foundation
 
 enum LoginResult {
     case success
@@ -22,48 +22,47 @@ enum LoginError: Error {
 }
 
 struct LoginViewModel {
-    
     var userIsLogged: Bool {
         return Auth.auth().currentUser != nil
     }
-    
+
     func checkIfUserIsLogged() -> Bool {
         return Auth.auth().currentUser != nil
     }
-    
-    func createProfile(email:String?, password: String?, completion: ((LoginResult) -> Void)? = nil) {
+
+    func createProfile(email: String?, password: String?, completion: ((LoginResult) -> Void)? = nil) {
         do {
             let (email, password) = try checkEmailAndPassword(email: email, password: password)
             Auth.auth().createUser(withEmail: email,
-                                   password: password) { (_, error) in
-                                    if let error = error {
-                                        completion?(.failure(error))
-                                        return
-                                    }
-                                    completion?(.success)
+                                   password: password) { _, error in
+                if let error = error {
+                    completion?(.failure(error))
+                    return
+                }
+                completion?(.success)
             }
         } catch {
             completion?(.failure(error))
         }
     }
-    
-    func submitProfile(email:String?, password: String?, completion: ((LoginResult) -> Void)? = nil) {
+
+    func submitProfile(email: String?, password: String?, completion: ((LoginResult) -> Void)? = nil) {
         do {
             let (email, password) = try checkEmailAndPassword(email: email, password: password)
             Auth.auth().signIn(withEmail: email,
-                               password: password) { (_, error) in
-                                if let error = error {
-                                    completion?(.failure(error))
-                                    return
-                                }
-                                completion?(.success)
+                               password: password) { _, error in
+                if let error = error {
+                    completion?(.failure(error))
+                    return
+                }
+                completion?(.success)
             }
         } catch {
             completion?(.failure(error))
         }
     }
-    
-    private func checkEmailAndPassword(email: String?, password: String?) throws -> (email:String, password: String) {
+
+    private func checkEmailAndPassword(email: String?, password: String?) throws -> (email: String, password: String) {
         guard let email = email, !email.isEmpty else {
             throw LoginError.emailIsEmpty
         }
