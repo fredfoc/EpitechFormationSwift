@@ -13,8 +13,8 @@ class HomeViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
 
     var users = [UserModel]()
-    let homeViewModel = HomeViewModel(userManager: FireBaseManager())
-
+    var homeViewModel: HomeViewModelProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Home"
@@ -23,9 +23,9 @@ class HomeViewController: UIViewController {
                                                             style: .plain,
                                                             target: self,
                                                             action: #selector(logOut))
-        userInfos.text = homeViewModel.displayUserInfo
-        homeViewModel.logIn()
-        homeViewModel.getUsers { [weak self] users in
+        userInfos.text = homeViewModel?.displayUserInfo
+        homeViewModel?.logIn()
+        homeViewModel?.getUsers { [weak self] users in
             self?.users = users ?? []
             self?.tableView.reloadData()
         }
@@ -33,11 +33,11 @@ class HomeViewController: UIViewController {
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        homeViewModel.removeObservers()
+        homeViewModel?.removeObservers()
     }
 
     @objc private func logOut() {
-        homeViewModel.logOut { completed, error in
+        homeViewModel?.logOut { completed, error in
             if completed {
                 navigationController?.popToRootViewController(animated: true)
             } else {

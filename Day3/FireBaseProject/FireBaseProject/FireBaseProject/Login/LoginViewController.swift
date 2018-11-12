@@ -34,7 +34,9 @@ class LoginViewController: UIViewController {
     }
 
     private func displayHome() {
-        let homeVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "homeVC")
+        guard let homeVC: UIViewController = HomeViewInjectorImpl().resolve() else {
+            return
+        }
         navigationController?.show(homeVC, sender: nil)
     }
 

@@ -19,6 +19,7 @@ extension UserProtocol {
 }
 
 class FireBaseProjectTests: XCTestCase {
+    
     struct MockFireBaseManagerNoUser: UserProtocol {
         var currentUserUUId: String? {
             return nil

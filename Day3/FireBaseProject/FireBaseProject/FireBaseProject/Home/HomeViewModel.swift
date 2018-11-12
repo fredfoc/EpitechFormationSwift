@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct HomeViewModel {
+struct HomeViewModel: HomeViewModelProtocol {
     let userManager: UserProtocol
 
     func logOut(completion: (Bool, Error?) -> Void) {
