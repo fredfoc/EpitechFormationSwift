@@ -10,9 +10,8 @@ import Firebase
 import Foundation
 
 struct HomeViewModel {
-    
     let userManager: UserProtocol
-    
+
     func logOut(completion: (Bool, Error?) -> Void) {
         guard let currentUser = Auth.auth().currentUser else {
             return
@@ -42,14 +41,31 @@ struct HomeViewModel {
         return Auth.auth().currentUser?.email
     }
 
-    func getUsers(completion: @escaping ([UserModel]) -> Void) {
+    func getUsers(completion: @escaping ([UserModel]?) -> Void) {
         guard let currentUserUUId = userManager.currentUserUUId else {
-            completion([])
+            completion(nil)
             return
         }
-        userManager.getUsers(completion: completion)
+        userManager.getUsers { value in
+            guard let value = value else {
+                completion([])
+                return
+            }
+            let users = value.compactMap({ (userEntry) -> UserModel? in
+                let (key, value) = userEntry
+                guard let userUuid = key as? String,
+                    userUuid != self.userManager.currentUserUUId,
+                    let valueDictionary = value as? NSDictionary,
+                    let username = valueDictionary["username"] as? String,
+                    let online = valueDictionary["online"] as? Bool else {
+                    return nil
+                }
+                return UserModel(username: username, online: online, uuid: userUuid)
+            })
+            completion(users)
+        }
     }
-    
+
     func removeObservers() {
         Database.database().reference().removeAllObservers()
     }

@@ -6,18 +6,49 @@
 //  Copyright © 2018 MotoTomo. All rights reserved.
 //
 
-import XCTest
 @testable import FireBaseProject
+import XCTest
 
 class FireBaseProjectTests: XCTestCase {
-    
     struct MockFireBaseManager: UserProtocol {
         var currentUserUUId: String? {
             return nil
         }
-        func getUsers(completion: @escaping ([UserModel]) -> Void) {}
+
+        func getUsers(completion: @escaping (NSDictionary?) -> Void) {
+            completion(nil)
+        }
+    }
+
+    struct MockFireBaseManagerLogged: UserProtocol {
+        var currentUserUUId: String? {
+            return "uuid"
+        }
+
+        func getUsers(completion: @escaping (NSDictionary?) -> Void) {
+            completion([
+                "anotherUuid": [
+                    "username": "Fred",
+                    "online": true,
+                ],
+                "uuid": [
+                    "username": "Fred",
+                    "online": true,
+                ],
+            ])
+        }
     }
     
+    struct MockFireBaseManagerLoggedButNoUser: UserProtocol {
+        var currentUserUUId: String? {
+            return "uuid"
+        }
+        
+        func getUsers(completion: @escaping (NSDictionary?) -> Void) {
+            completion(nil)
+        }
+    }
+
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -26,13 +57,31 @@ class FireBaseProjectTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testGetUsers() {
-        // when user is loggued out
+    func testGetUsersWhenCurrentUserIsLoggedOut() {
+        // when user is loggued out => users is nil
         let mockFireBase = MockFireBaseManager()
         let homeViewModel = HomeViewModel(userManager: mockFireBase)
-        // main user is logged (impossible to check)
-        homeViewModel.getUsers { (users) in
-            XCTAssertTrue(users.isEmpty)
+        homeViewModel.getUsers { users in
+            XCTAssertNil(users)
+        }
+    }
+
+    func testGetUsersWhenCurrentUserIsLoggedIn() {
+        // when user is loggued in
+        let mockFireBase = MockFireBaseManagerLogged()
+        let homeViewModel = HomeViewModel(userManager: mockFireBase)
+        homeViewModel.getUsers { users in
+            XCTAssertFalse(users!.isEmpty)
+            XCTAssertTrue(users!.count == 1)
+        }
+    }
+    
+    func testGetUsersWhenCurrentUserIsLoggedInButNoUser() {
+        // when user is loggued in
+        let mockFireBase = MockFireBaseManagerLoggedButNoUser()
+        let homeViewModel = HomeViewModel(userManager: mockFireBase)
+        homeViewModel.getUsers { users in
+            XCTAssertTrue(users!.isEmpty)
         }
     }
 }

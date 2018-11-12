@@ -26,11 +26,11 @@ class HomeViewController: UIViewController {
         userInfos.text = homeViewModel.displayUserInfo
         homeViewModel.logIn()
         homeViewModel.getUsers { [weak self] users in
-            self?.users = users
+            self?.users = users ?? []
             self?.tableView.reloadData()
         }
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         homeViewModel.removeObservers()
@@ -61,7 +61,7 @@ extension HomeViewController: UITableViewDataSource {
 }
 
 extension HomeViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_: UITableView, didSelectRowAt _: IndexPath) {
         let chatVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "chatVC")
         navigationController?.show(chatVC, sender: nil)
     }

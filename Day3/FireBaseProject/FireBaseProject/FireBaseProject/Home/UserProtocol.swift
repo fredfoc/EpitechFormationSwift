@@ -9,6 +9,6 @@
 import Foundation
 
 protocol UserProtocol {
-    var currentUserUUId: String? {get}
-    func getUsers(completion: @escaping ([UserModel]) -> Void)
+    var currentUserUUId: String? { get }
+    func getUsers(completion: @escaping (NSDictionary?) -> Void)
 }
