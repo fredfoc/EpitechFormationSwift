@@ -11,6 +11,9 @@ import UIKit
 class HomeViewController: UIViewController {
     
     @IBOutlet private weak var userInfos: UITextView!
+    @IBOutlet private weak var tableView: UITableView!
+    
+    var users = [UserModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +24,11 @@ class HomeViewController: UIViewController {
                                                             target: self,
                                                             action: #selector(logOut))
         userInfos.text = HomeViewModel().displayUserInfo
+        
+        HomeViewModel().getUsers {[weak self] (users) in
+            self?.users = users
+            self?.tableView.reloadData()
+        }
     }
     
     @objc private func logOut() {
@@ -32,4 +40,21 @@ class HomeViewController: UIViewController {
             }
         }
     }
+}
+
+extension HomeViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return users.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
+        let user = users[indexPath.row]
+        cell.textLabel?.text = user.username
+        return cell
+    }
+}
+
+extension HomeViewController: UITableViewDelegate {
+    
 }

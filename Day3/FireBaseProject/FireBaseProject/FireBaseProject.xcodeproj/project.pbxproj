@@ -19,6 +19,7 @@
 		9A459C852187461600923B40 /* String+Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A459C842187461600923B40 /* String+Email.swift */; };
 		9A459C872187465B00923B40 /* String+Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A459C862187465B00923B40 /* String+Password.swift */; };
 		9A459C8921874BB200923B40 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A459C8821874BB200923B40 /* GoogleService-Info.plist */; };
+		9A5AEA5A21997F6B00A0C5C3 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5AEA5921997F6B00A0C5C3 /* UserModel.swift */; };
 		9A6C40F621875FCA00D4A438 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6C40F521875FCA00D4A438 /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		9A459C842187461600923B40 /* String+Email.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Email.swift"; sourceTree = "<group>"; };
 		9A459C862187465B00923B40 /* String+Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Password.swift"; sourceTree = "<group>"; };
 		9A459C8821874BB200923B40 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9A5AEA5921997F6B00A0C5C3 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		9A6C40F521875FCA00D4A438 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		A3CE897C5C8B53222949B379 /* Pods-FireBaseProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireBaseProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-FireBaseProject/Pods-FireBaseProject.release.xcconfig"; sourceTree = "<group>"; };
 		CD5A33503B3213EED968F316 /* Pods-FireBaseProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireBaseProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FireBaseProject/Pods-FireBaseProject.debug.xcconfig"; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 		9A459C68218735E000923B40 /* FireBaseProject */ = {
 			isa = PBXGroup;
 			children = (
+				9A5AEA5821997F1D00A0C5C3 /* Model */,
 				9A459C83218745FE00923B40 /* Utils */,
 				9A459C80218740C400923B40 /* Login */,
 				9A459C7F218740BB00923B40 /* Home */,
@@ -131,6 +134,14 @@
 				9A459C862187465B00923B40 /* String+Password.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		9A5AEA5821997F1D00A0C5C3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9A5AEA5921997F6B00A0C5C3 /* UserModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +268,7 @@
 				9A459C6A218735E000923B40 /* AppDelegate.swift in Sources */,
 				9A459C7C21873A5600923B40 /* LoginViewModel.swift in Sources */,
 				9A459C7E21873FC000923B40 /* UIViewController+Alert.swift in Sources */,
+				9A5AEA5A21997F6B00A0C5C3 /* UserModel.swift in Sources */,
 				9A459C852187461600923B40 /* String+Email.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

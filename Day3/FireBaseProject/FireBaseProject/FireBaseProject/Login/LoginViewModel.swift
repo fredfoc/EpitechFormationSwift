@@ -22,6 +22,15 @@ enum LoginError: Error {
 }
 
 struct LoginViewModel {
+    
+    var userIsLogged: Bool {
+        return Auth.auth().currentUser != nil
+    }
+    
+    func checkIfUserIsLogged() -> Bool {
+        return Auth.auth().currentUser != nil
+    }
+    
     func createProfile(email:String?, password: String?, completion: ((LoginResult) -> Void)? = nil) {
         do {
             let (email, password) = try checkEmailAndPassword(email: email, password: password)
