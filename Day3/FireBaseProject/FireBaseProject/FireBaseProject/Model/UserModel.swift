@@ -10,4 +10,10 @@ import Foundation
 
 struct UserModel {
     let username: String
+    let online: Bool
+    let uuid: String
+    
+    var displayName: String {
+        return username + (online ? " (online)." : " (offline).")
+    }
 }
